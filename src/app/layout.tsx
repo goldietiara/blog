@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className='px-5 lg:px-10 py-5 border-b-2 border-slate-100'><Navbar></Navbar></div>
+        <div className='px-5 lg:px-10 py-5 border-b-2 border-slate-100 '><Navbar></Navbar></div>
         <div>{children}</div>
         <div className='px-5 lg:px-10 py-5 bg-zinc-100'><Footer></Footer></div>
       </body>

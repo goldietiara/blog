@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import Logo from '../app/public/logo-purple.svg'
+import Logo from '@/public/logo-purple.svg'
 import { footerLinks } from '@/constant/constant'
 import Link from 'next/link'
 
@@ -30,7 +30,7 @@ const Footer = () => {
                 <p className='text-sm'>Flexible is the world's leading community for creatives to share,grow and get hired</p>
             </section>
 
-            <section className='flex justify-between'>
+            <section className=' hidden md:flex md:justify-between'>
                 <FooterColumn title={footerLinks[0].title} links={footerLinks[0].links}></FooterColumn>
                 <div>
                     <FooterColumn title={footerLinks[1].title} links={footerLinks[1].links}></FooterColumn>
@@ -44,8 +44,8 @@ const Footer = () => {
                 <FooterColumn title={footerLinks[6].title} links={footerLinks[6].links}></FooterColumn>
             </section>
 
-            <section className='flex justify-between'>
-                <p>@ 2023 Flexible. All right reserved</p>
+            <section className='flex justify-between lg:text-sm text-sm'>
+                <p>@2023 Flexible. All right reserved</p>
                 <p><span>10,214</span> Projects submitted</p>
             </section>
         </footer>

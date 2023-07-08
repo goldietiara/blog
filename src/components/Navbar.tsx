@@ -1,13 +1,16 @@
 import Link from 'next/link'
-import React from 'react'
-import logo from '../app/public/logo.svg'
+import React, { useEffect } from 'react'
+import logo from '../public/logo.svg'
 import Image from 'next/image'
 import { NavLinks } from '@/constant/constant'
 import AuthProvider from './AuthProvider'
+import { getProviders } from 'next-auth/react'
 
 const Navbar = () => {
 
-    const session = {}
+    const session = null
+
+    // min 01:05:00
 
     return (
         <nav className='flex justify-between'>
