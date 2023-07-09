@@ -5,10 +5,11 @@ import Image from 'next/image'
 import { NavLinks } from '@/constant/constant'
 import AuthProvider from './AuthProvider'
 import { getProviders } from 'next-auth/react'
+import { getCurrentUser } from '@/lib/session'
 
-const Navbar = () => {
+const Navbar = async () => {
 
-    const session = null
+    const session = await getCurrentUser()
 
     // min 01:05:00
 
@@ -26,9 +27,14 @@ const Navbar = () => {
             </div>
 
             <div>
-                {session
-                    ? <> User Photo <Link href="/create-project"> Share Work</Link> </>
-                    : <AuthProvider></AuthProvider>
+                {session?.user
+                    ? (
+                        <>
+                            {session?.user?.image && (<Image src={session.user.image} width={40} height={40} alt={session.user.name}></Image>)}
+                            User Photo <Link href="/create-project"> Share Work</Link>
+                        </>
+                    )
+                    : (<AuthProvider></AuthProvider>)
                 }
             </div>
 

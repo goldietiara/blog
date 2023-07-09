@@ -33,14 +33,15 @@ const Footer = () => {
             <section className=' hidden md:flex md:justify-between'>
                 <FooterColumn title={footerLinks[0].title} links={footerLinks[0].links}></FooterColumn>
                 <div>
-                    <FooterColumn title={footerLinks[1].title} links={footerLinks[1].links}></FooterColumn>
                     <FooterColumn title={footerLinks[2].title} links={footerLinks[2].links}></FooterColumn>
+                    <FooterColumn title={footerLinks[1].title} links={footerLinks[1].links}></FooterColumn>
                 </div>
+
                 <FooterColumn title={footerLinks[3].title} links={footerLinks[3].links}></FooterColumn>
-                <div>
-                    <FooterColumn title={footerLinks[4].title} links={footerLinks[4].links}></FooterColumn>
-                    <FooterColumn title={footerLinks[5].title} links={footerLinks[5].links}></FooterColumn>
-                </div>
+
+                <FooterColumn title={footerLinks[4].title} links={footerLinks[4].links}></FooterColumn>
+                <FooterColumn title={footerLinks[5].title} links={footerLinks[5].links}></FooterColumn>
+
                 <FooterColumn title={footerLinks[6].title} links={footerLinks[6].links}></FooterColumn>
             </section>
 
