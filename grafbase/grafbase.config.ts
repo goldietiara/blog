@@ -9,6 +9,8 @@ const User = g.model('User', {
   githubUrl: g.url().optional(),
   linkedinUrl: g.url().optional(),
   projects: g.relation(() => Project).list().optional(),
+}).auth((rules) => {
+  rules.public().read()
 })
 
 
@@ -21,11 +23,20 @@ const Project = g.model('Project', {
   githubUrl: g.url(),
   category: g.string().search(),
   createdBy: g.relation(() => User),
+}).auth((rules) => {
+  rules.public().read()
+  rules.private().create().update().delete()
 })
 
-
+const jwt = auth.JWT({
+  issuer: 'grafbase',
+  secret: g.env('NEXTAUTH_SECRET')
+})
 
 export default config({
   schema: g,
-
+  auth: {
+    providers: [jwt],
+    rules: (rules) => rules.private(),
+  }
 })

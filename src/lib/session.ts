@@ -4,9 +4,8 @@ import { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from 'next-auth/providers/google'
 import jsonwebtoken from 'jsonwebtoken'
 import { JWT } from "next-auth/jwt";
-import { signIn } from "next-auth/react";
-import { SessionInterface, UserProfile } from "@/common.types";
 import { createUser, getUser } from "./action";
+import { SessionInterface, UserProfile } from "@/common.types";
 
 // 01:26:00
 
@@ -17,20 +16,45 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!
         })
     ],
-    // jwt: {
-    //     encode: ({ secret, token }) => {
+    jwt: {
+        encode: ({ secret, token }) => {
+            const encodedToken = jsonwebtoken.sign(
+                {
+                    ...token,
+                    iss: "grafbase",
+                    exp: Math.floor(Date.now() / 1000) + 60 * 60,
+                },
+                secret
+            );
 
-    //     },
-    //     decode: async { secret, token }() => {
-
-    //     }
-    // },
+            return encodedToken;
+        },
+        decode: async ({ secret, token }) => {
+            const decodedToken = jsonwebtoken.verify(token!, secret);
+            return decodedToken as JWT;
+        },
+    },
     theme: {
         colorScheme: 'light'
     },
     callbacks: {
         async session({ session }) {
-            return session
+            const email = session?.user?.email as string
+            try {
+                const data = await getUser(email) as { user?: UserProfile }
+
+                const newSession = {
+                    ...session,
+                    user: {
+                        ...session.user,
+                        ...data?.user
+                    }
+                }
+                return newSession
+            } catch (error) {
+                console.log("error retrieving user data", error)
+                return session
+            }
         },
         async signIn({ user }: { user: AdapterUser | User }) {
             try {

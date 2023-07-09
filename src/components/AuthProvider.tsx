@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { getProviders, signIn } from 'next-auth/react'
 import React from 'react'
 
+// 01:37:00
 
 type typeProvider = {
     id: string
