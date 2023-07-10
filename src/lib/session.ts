@@ -7,7 +7,7 @@ import { JWT } from "next-auth/jwt";
 import { createUser, getUser } from "./action";
 import { SessionInterface, UserProfile } from "@/common.types";
 
-// 01:26:00
+// keep all data of currently login user
 
 export const authOptions: NextAuthOptions = {
     providers: [
