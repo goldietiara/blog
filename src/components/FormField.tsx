@@ -10,7 +10,7 @@ type typeProps = {
 const FormField = ({ type, title, state, placeholder, isTextArea, setState }: typeProps) => {
     return (
         <div className="flex items-center justify-start flex-col w-full gap-4">
-            <label className="w-full text-gray-100">{title}</label>
+            <label className="w-full text-black">{title}</label>
 
             {isTextArea ? (
                 <textarea
@@ -25,7 +25,7 @@ const FormField = ({ type, title, state, placeholder, isTextArea, setState }: ty
                     placeholder={placeholder}
                     required
                     value={state}
-                    className="w-full outline-0 bg-light-white-100 rounded-xl p-4"
+                    className="w-full outline-0 bg-slate-100 rounded-xl p-4 "
                     onChange={(e) => setState(e.target.value)}
                 />
             )}

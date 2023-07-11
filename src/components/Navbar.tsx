@@ -32,7 +32,7 @@ const Navbar = async () => {
                     ? (
                         <>
                             <ProfileMenu session={session}></ProfileMenu>
-                            <Link className=' bg-black text-white rounded-md px-4 py-2 hover:bg-violet-500 transition-all ease-linear duration-100' href="/create-project"> Share Work</Link>
+                            <Link className=' bg-black text-white rounded-md px-4 py-2 hover:bg-teal-500 transition-all ease-linear duration-100' href="/create-project"> Share Work</Link>
 
                         </>
                     )
