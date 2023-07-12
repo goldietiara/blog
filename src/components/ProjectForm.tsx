@@ -23,26 +23,49 @@ const ProjectForm = ({ type, session }: typeProps) => {
 
     const router = useRouter()
 
+
+    const [isSubmit, setIsSubmit] = useState(false)
+
+
+    const [form, setForm] = useState({
+        title: '',
+        description: '',
+        image: '',
+        liveSiteUrl: '',
+        githubUrl: '',
+        category: '',
+    })
+
+
     // Submit Form
-    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleFormSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+
         setIsSubmit(true)
 
         const { token } = await fetchToken()
 
         try {
             if (type === "create") {
-                // create new project action
+                // form, orangnya, tokenx
                 await createNewProject(form, session?.user?.id, token)
-                router.push('/')
-            }
-        } catch (error) {
-            console.log(error)
 
+                router.push("/")
+            }
+
+            if (type === "edit") {
+                // await updateProject(form, project?.id as string, token)
+
+                router.push("/")
+            }
+
+        } catch (error) {
+            alert(`Failed to ${type === "create" ? "create" : "edit"} a project. Try again!`);
         } finally {
             setIsSubmit(false)
         }
     }
+
 
     // Change Image
     const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,34 +90,27 @@ const ProjectForm = ({ type, session }: typeProps) => {
         }
     }
 
+
     // State Change
     const handleStateChange = (fieldName: string, value: string) => {
         setForm((prev) => ({ ...prev, [fieldName]: value }))
     }
-    const [isSubmit, setIsSubmit] = useState(false)
-    const [form, setForm] = useState({
-        title: '',
-        description: '',
-        image: '',
-        liveSiteUrl: '',
-        githubUrl: '',
-        category: '',
-    })
 
 
     return (
         <form onSubmit={handleFormSubmit} className='flex items-center justify-start flex-col w-full lg:pt-24 pt-12 gap-10 text-lg max-w-5xl mx-auto '>
-            <div className='flex items-center justify-start w-full lg:min-h-[400px] min-h-[200px] relative'>
+
+            <div className='flex items-center justify-start w-full lg:min-h-[200px] min-h-[200px] relative'>
                 <label htmlFor="poster" className='flex justify-center items-center z-10 text-center w-full h-full p-20 text-gray-400 border-2 border-gray-300 border-dashed'>
                     {!form.image && 'chooose a poster for your project'}
                 </label>
                 <input
                     id="image"
-                    type='file'
+                    type="file"
                     accept='image/*'
-                    required={type === 'create' ? true : false}
+                    required={type === "create" ? true : false}
                     className='absolute z-30 w-full opacity-0 h-full cursor-pointer'
-                    onChange={handleChangeImage}
+                    onChange={(e) => handleChangeImage(e)}
                 />
                 {form.image && (
                     <Image
@@ -108,11 +124,11 @@ const ProjectForm = ({ type, session }: typeProps) => {
                 )}
             </div>
 
-
             <FormField
                 title="Title"
                 state={form.title}
                 placeholder="flexible"
+                // form field, value
                 setState={(value) => handleStateChange('title', value)}
             />
             <FormField
@@ -125,7 +141,7 @@ const ProjectForm = ({ type, session }: typeProps) => {
                 type='url'
                 title="Website Url"
                 state={form.liveSiteUrl}
-                placeholder="test test"
+                placeholder="website URL"
                 setState={(value) => handleStateChange('liveSiteUrl', value)}
             />
             <FormField
@@ -143,6 +159,8 @@ const ProjectForm = ({ type, session }: typeProps) => {
                 setState={(value) => handleStateChange('category', value)}
             /> */}
             {/* { custom input} */}
+
+
             <button className='flex items-center justify-start w-full'>
                 <Button
                     title={isSubmit

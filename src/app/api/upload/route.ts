@@ -9,6 +9,8 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET,
 });
 
+
+
 export async function POST(request: Request) {
     const { path } = await request.json()
 

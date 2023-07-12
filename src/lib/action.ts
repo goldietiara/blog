@@ -70,10 +70,10 @@ export const uploadImage = async (imagePath: string) => {
 }
 
 export const createNewProject = async (form: ProjectForm, creatorId: string, token: string) => {
-    const imageUrl = await uploadImage(form.image)
+    const imageUrl = await uploadImage(form.image);
 
     if (imageUrl.url) {
-        client.setHeader("Authorization", `bearer${token}`)
+        client.setHeader("Authorization", `Bearer ${token}`);
 
         const variables = {
             input: {
@@ -84,6 +84,7 @@ export const createNewProject = async (form: ProjectForm, creatorId: string, tok
                 }
             }
         };
-        makeGraphQLRequest(createProjectMutation, variables)
+
+        return makeGraphQLRequest(createProjectMutation, variables);
     }
-}
+};
