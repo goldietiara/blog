@@ -28,6 +28,7 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: typeProps) =
 
     return (
         <div className="flex justify-center items-center flex-col rounded-2xl drop-shadow-card">
+
             <Link href={`/project/${id}`} className="flex justify-center items-center group relative w-full h-full ">
                 <Image
                     src={image}
@@ -68,6 +69,7 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: typeProps) =
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };

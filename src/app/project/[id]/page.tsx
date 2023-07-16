@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import iconDot from '@/public/dot.svg'
+import RelatedProjects from '@/components/RelatedProjects'
 
 const Project = async ({ params: { id } }: { params: { id: string } }) => {
 
@@ -74,7 +75,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
                     <Link href={projectDetails?.githubUrl} target="_blank" rel="noreferrer" className="flex justify-center items-center gap-2 tex-sm font-medium text-primary-purple">
                         🖥 <span className="hover:underline">Github</span>
                     </Link>
-                    <Image src="/dot.svg" width={4} height={4} alt="dot" />
+                    <Image src={iconDot} width={4} height={4} alt="dot" />
                     <Link href={projectDetails?.liveSiteUrl} target="_blank" rel="noreferrer" className="flex justify-center items-center gap-2 tex-sm font-medium text-primary-purple">
                         🚀 <span className="hover:underline">Live Site</span>
                     </Link>
@@ -95,7 +96,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
                 <span className="w-full h-0.5 bg-light-white-200" />
             </section>
 
-            {/* <RelatedProjects userId={projectDetails?.createdBy?.id} projectId={projectDetails?.id} /> */}
+            <RelatedProjects userId={projectDetails?.createdBy?.id} projectId={projectDetails?.id} />
         </Modal>
     )
 }

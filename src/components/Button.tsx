@@ -1,11 +1,12 @@
 import Image from "next/image"
+import { MouseEventHandler } from "react";
 
 type typeProps = {
     title: string
-    type: 'button' | 'submit'
+    type?: 'button' | 'submit'
     leftIcon?: any | null
     rightIcon?: string | null
-    handleClick?: React.MouseEventHandler
+    handleClick?: MouseEventHandler,
     isSubmit?: boolean
     bgColor?: string
     textColor?: string
