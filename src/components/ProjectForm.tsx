@@ -47,7 +47,7 @@ const ProjectForm = ({ type, session }: typeProps) => {
 
         try {
             if (type === "create") {
-                // form, orangnya, tokenx
+                // form, currentUser, token
                 await createNewProject(form, session?.user?.id, token)
 
                 router.push("/")
@@ -152,16 +152,16 @@ const ProjectForm = ({ type, session }: typeProps) => {
                 setState={(value) => handleStateChange('githubUrl', value)}
             />
 
-            {/* <CustomMenu
-                title="Github URL"
+            <CustomMenu
+                title="Category"
                 state={form.category}
                 filters={categoryFilters}
                 setState={(value) => handleStateChange('category', value)}
-            /> */}
+            />
             {/* { custom input} */}
 
 
-            <button className='flex items-center justify-start w-full'>
+            <div className='flex items-center justify-start w-full'>
                 <Button
                     title={isSubmit
                         ? `${type === 'create' ? 'Creating' : 'Editing'}`
@@ -174,7 +174,7 @@ const ProjectForm = ({ type, session }: typeProps) => {
                     }
                     isSubmit={isSubmit}
                 />
-            </button>
+            </div>
         </form>
     )
 }

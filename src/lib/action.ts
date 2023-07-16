@@ -1,8 +1,17 @@
 import { GraphQLClient } from "graphql-request";
-import { createProjectMutation, createUserMutation, getUserQuery } from "../../graphql";
+import {
+    createProjectMutation,
+    createUserMutation,
+    getProjectByIdQuery,
+    getUserQuery,
+    projectsQuery
+} from "../../graphql";
 import { ProjectForm } from "@/common.types";
 
 // npx grafbase@0.24 dev
+// Communicate with Back-End
+
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 const apiUrl = isProduction
@@ -19,18 +28,21 @@ const serverUrl = isProduction
 
 const client = new GraphQLClient(apiUrl)
 
+
 const makeGraphQLRequest = async (query: string, variables = {}) => {
     try {
-        return await client.request(query, variables)
-    } catch (error) {
-        throw error
+        return await client.request(query, variables);
+    } catch (err) {
+        throw err;
     }
-}
+};
 
 export const getUser = (email: string) => {
     client.setHeader('x-api-key', apiKey)
     return makeGraphQLRequest(getUserQuery, { email })
 }
+
+
 
 export const createUser = (name: string, email: string, avatarUrl: string) => {
     client.setHeader('x-api-key', apiKey)
@@ -87,4 +99,17 @@ export const createNewProject = async (form: ProjectForm, creatorId: string, tok
 
         return makeGraphQLRequest(createProjectMutation, variables);
     }
+};
+
+
+export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
+    client.setHeader("x-api-key", apiKey);
+
+    return makeGraphQLRequest(projectsQuery, { category, endcursor });
+};
+
+
+export const getProjectDetails = (id: string) => {
+    client.setHeader("x-api-key", apiKey);
+    return makeGraphQLRequest(getProjectByIdQuery, { id });
 };

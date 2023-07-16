@@ -3,6 +3,7 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import Image from 'next/image';
+import iconArrowDown from '@/public/arrow-down.svg'
 
 type typeProps = {
     title: string,
@@ -12,14 +13,14 @@ type typeProps = {
 }
 
 const CustomMenu = ({ title, state, filters, setState }: typeProps) => (
-    <div className="flexStart flex-col w-full gap-7 relative">
-        <label htmlFor={title} className="w-full text-gray-100">{title}</label>
-        <Menu as="div" className="self-start relative">
-            <div>
-                <Menu.Button className="flex justify-center items-center gap-4 w-full rounded-md bg-light-white-100 p-4 text-base outline-none capitalize">
+    <div className="flex items-center justify-start flex-col w-full gap-7 relative">
+        <label htmlFor={title} className="w-full text-black">{title}</label>
+        <Menu as="div" className="self-start relative w-full">
+            <div className=' bg-slate-100 w-full rounded-md text-slate-500'>
+                <Menu.Button className="flex items-center gap-4 w-full rounded-md bg-light-white-100 p-4 text-base outline-none capitalize">
                     {state || 'Category'}
                     <Image
-                        src="/arrow-down.svg"
+                        src={iconArrowDown}
                         width={10}
                         height={5}
                         alt="arrow down"
