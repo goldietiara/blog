@@ -1,29 +1,45 @@
 import { ProjectInterface } from '@/common.types'
+import Categories from '@/components/Categories'
+import LoadMore from '@/components/LoadMore'
 import ProjectCard from '@/components/ProjectCard'
 import { fetchAllProjects } from '@/lib/action'
 import Image from 'next/image'
 
-type typeProjectSearch = {
-  projectSearch: {
-    edges: { node: ProjectInterface }[]
-    pageInfo: {
-      hasPreviousPage: boolean
-      hasNextPage: boolean
-      startCursor: string
-      endCursor: string
-    }
-  }
+type typeSearchParams = {
+  category?: string | null;
+  endcursor?: string | null;
 }
 
-export default async function Home() {
+type typeProps = {
+  searchParams: typeSearchParams
+}
 
-  const data = await fetchAllProjects() as typeProjectSearch
+type typeProjectSearch = {
+  projectSearch: {
+    edges: { node: ProjectInterface }[];
+    pageInfo: {
+      hasPreviousPage: boolean;
+      hasNextPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
+  },
+}
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+export const revalidate = 0;
+
+export default async function Home({ searchParams: { category, endcursor } }: typeProps) {
+
+  const data = await fetchAllProjects(category, endcursor) as typeProjectSearch
 
   const projectsToDisplay = data?.projectSearch?.edges || []
 
   if (projectsToDisplay.length === 0) {
     return (
-      <section className='flex flex-col items-center justify-start lg:px-20 py-6 px-5'>
+      <section className=' h-screen flex flex-col items-center justify-start lg:px-20 py-6 px-5'>
+        <Categories></Categories>
 
         <p className='w-full text-center my-10 px-2'>No projects found</p>
       </section>
@@ -34,7 +50,7 @@ export default async function Home() {
 
   return (
     <section className='flex items-center justify-start flex-col lg:px-20 py-6 px-5 mb-16'>
-      <h1 >Categories</h1>
+      <Categories></Categories>
 
       <section className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 mt-10 w-full'>
         {projectsToDisplay.map(({ node }: { node: ProjectInterface }, i, a) => {
@@ -53,7 +69,12 @@ export default async function Home() {
       </section>
 
       <h1>Posts</h1>
-      <h1>Loadmore</h1>
+      <LoadMore
+        startCursor={data?.projectSearch?.pageInfo?.startCursor}
+        endCursor={data?.projectSearch?.pageInfo?.endCursor}
+        hasPreviousPage={data?.projectSearch?.pageInfo?.hasPreviousPage}
+        hasNextPage={data?.projectSearch?.pageInfo?.hasNextPage}
+      />
     </section>
   )
 }

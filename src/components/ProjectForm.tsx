@@ -14,13 +14,13 @@ import { createNewProject, fetchToken, updateProject } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 
 
-type typeProps = {
+type Props = {
     type: string
     session: SessionInterface
-    project: ProjectInterface
+    project?: ProjectInterface
 }
 
-const ProjectForm = ({ type, session, project }: typeProps) => {
+const ProjectForm = ({ type, session, project }: Props) => {
 
     const router = useRouter()
 

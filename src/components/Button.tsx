@@ -20,7 +20,7 @@ const Button = ({ title, type, leftIcon, rightIcon, handleClick, isSubmit, bgCol
                     ? " bg-orange-500"
                     : bgColor ? bgColor : ""}
                     ${textColor ? textColor : ""}
-            flex items-center gap-2 text-white bg-black py-3 px-5 rounded-md hover:bg-teal-500 transition-all ease-linear duration-150`}
+            flex items-center gap-2 text-white bg-black py-3 px-6  hover:bg-teal-500 transition-all ease-out duration-500`}
             type={type || 'button'}
             disabled={isSubmit}
             onClick={handleClick}
