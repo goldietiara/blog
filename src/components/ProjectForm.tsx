@@ -1,6 +1,6 @@
 "use client"
 
-import { SessionInterface } from '@/common.types'
+import { ProjectInterface, SessionInterface } from '@/common.types'
 import Image from 'next/image'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 // other way to do it
@@ -10,16 +10,17 @@ import { categoryFilters } from '@/constant/constant'
 import Button from './Button'
 
 import plus from '@/public/plus.svg'
-import { createNewProject, fetchToken } from '@/lib/action'
+import { createNewProject, fetchToken, updateProject } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 
 
 type typeProps = {
     type: string
     session: SessionInterface
+    project: ProjectInterface
 }
 
-const ProjectForm = ({ type, session }: typeProps) => {
+const ProjectForm = ({ type, session, project }: typeProps) => {
 
     const router = useRouter()
 
@@ -28,12 +29,12 @@ const ProjectForm = ({ type, session }: typeProps) => {
 
 
     const [form, setForm] = useState({
-        title: '',
-        description: '',
-        image: '',
-        liveSiteUrl: '',
-        githubUrl: '',
-        category: '',
+        title: project?.title || '',
+        description: project?.description || '',
+        image: project?.image || '',
+        liveSiteUrl: project?.liveSiteUrl || '',
+        githubUrl: project?.githubUrl || '',
+        category: project?.category || '',
     })
 
 
@@ -54,7 +55,7 @@ const ProjectForm = ({ type, session }: typeProps) => {
             }
 
             if (type === "edit") {
-                // await updateProject(form, project?.id as string, token)
+                await updateProject(form, project?.id as string, token)
 
                 router.push("/")
             }
@@ -153,7 +154,7 @@ const ProjectForm = ({ type, session }: typeProps) => {
             />
 
             <CustomMenu
-                title="Category"
+                title="Github URL"
                 state={form.category}
                 filters={categoryFilters}
                 setState={(value) => handleStateChange('category', value)}

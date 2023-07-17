@@ -24,6 +24,7 @@ export default async function Home() {
   if (projectsToDisplay.length === 0) {
     return (
       <section className='flex flex-col items-center justify-start lg:px-20 py-6 px-5'>
+
         <p className='w-full text-center my-10 px-2'>No projects found</p>
       </section>
     )

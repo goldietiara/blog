@@ -27,7 +27,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
 
     return (
         <Modal>
-            <section className="flex justify-between items-center gap-y-8   w-full">
+            <section className="flex justify-between items-center gap-y-8 w-full lg:w-11/12">
                 <div className="flex-1 flex items-start gap-5 w-full max-xs:flex-col">
                     <Link href={renderLink()}>
                         <Image
@@ -49,11 +49,11 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
                     </div>
                 </div>
 
-                {/* {session?.user?.email === projectDetails?.createdBy?.email && (
+                {session?.user?.email === projectDetails?.createdBy?.email && (
                     <div className="flex justify-end items-center gap-2">
                         <ProjectActions projectId={projectDetails?.id} />
                     </div>
-                )} */}
+                )}
             </section>
 
             <section className="mt-14">

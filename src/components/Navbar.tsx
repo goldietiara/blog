@@ -10,9 +10,10 @@ import ProfileMenu from './ProfileMenu'
 
 const Navbar = async () => {
 
+    // data dari api
     const session = await getCurrentUser()
 
-    // min 01:05:00
+
 
     return (
         <nav className='flex justify-between items-center'>
