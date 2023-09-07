@@ -8,8 +8,8 @@ import Image from "next/image";
 // npx grafbase@0.24 dev
 
 type typeSearchParams = {
-  category: string | "";
-  endCursor: string | "";
+  category: string | "test";
+  endCursor: string | "test";
 };
 
 type typeProps = {
