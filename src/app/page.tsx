@@ -36,7 +36,7 @@ export default async function Home({
   searchParams: { category, endCursor },
 }: typeProps) {
   const data = (await fetchAllProjects(
-    category,
+    "Frontend",
     endCursor
   )) as typeProjectSearch;
 
