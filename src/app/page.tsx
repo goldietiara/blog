@@ -9,7 +9,7 @@ import Image from "next/image";
 
 type typeSearchParams = {
   category?: string | null;
-  endcursor?: string | null;
+  endCursor?: string | null;
 };
 
 type typeProps = {
@@ -33,11 +33,11 @@ export const dynamicParams = true;
 export const revalidate = 0;
 
 export default async function Home({
-  searchParams: { category, endcursor },
+  searchParams: { category, endCursor },
 }: typeProps) {
   const data = (await fetchAllProjects(
     category,
-    endcursor
+    endCursor
   )) as typeProjectSearch;
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
