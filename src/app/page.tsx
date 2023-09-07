@@ -1,18 +1,20 @@
-import { ProjectInterface } from '@/common.types'
-import Categories from '@/components/Categories'
-import LoadMore from '@/components/LoadMore'
-import ProjectCard from '@/components/ProjectCard'
-import { fetchAllProjects } from '@/lib/action'
-import Image from 'next/image'
+import { ProjectInterface } from "@/common.types";
+import Categories from "@/components/Categories";
+import LoadMore from "@/components/LoadMore";
+import ProjectCard from "@/components/ProjectCard";
+import { fetchAllProjects } from "@/lib/action";
+import Image from "next/image";
+
+// npx grafbase@0.24 dev
 
 type typeSearchParams = {
   category?: string | null;
   endcursor?: string | null;
-}
+};
 
 type typeProps = {
-  searchParams: typeSearchParams
-}
+  searchParams: typeSearchParams;
+};
 
 type typeProjectSearch = {
   projectSearch: {
@@ -23,36 +25,40 @@ type typeProjectSearch = {
       startCursor: string;
       endCursor: string;
     };
-  },
-}
+  };
+};
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 export const revalidate = 0;
 
-export default async function Home({ searchParams: { category, endcursor } }: typeProps) {
+export default async function Home({
+  searchParams: { category, endcursor },
+}: typeProps) {
+  const data = (await fetchAllProjects(
+    category,
+    endcursor
+  )) as typeProjectSearch;
 
-  const data = await fetchAllProjects(category, endcursor) as typeProjectSearch
-
-  const projectsToDisplay = data?.projectSearch?.edges || []
+  const projectsToDisplay = data?.projectSearch?.edges || [];
 
   if (projectsToDisplay.length === 0) {
     return (
-      <section className=' h-screen flex flex-col items-center justify-start lg:px-20 py-6 px-5'>
+      <section className=" h-screen flex flex-col items-center justify-start lg:px-20 py-6 px-5">
+        <>Video</>
         <Categories></Categories>
 
-        <p className='w-full text-center my-10 px-2'>No projects found</p>
+        <p className="w-full text-center my-10 px-2">No projects found</p>
       </section>
-    )
+    );
   }
 
-
-
   return (
-    <section className='flex items-center justify-start flex-col lg:px-20 py-6 px-5 mb-16'>
+    <section className="flex items-center justify-start flex-col lg:px-20 py-6 px-5 mb-16">
+      <>Video</>
       <Categories></Categories>
 
-      <section className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 mt-10 w-full'>
+      <section className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 mt-10 w-full">
         {projectsToDisplay.map(({ node }: { node: ProjectInterface }, i, a) => {
           return (
             <ProjectCard
@@ -63,9 +69,9 @@ export default async function Home({ searchParams: { category, endcursor } }: ty
               name={node?.createdBy?.name}
               avatarUrl={node?.createdBy?.avatarUrl}
               userId={node?.createdBy?.id}
-            />)
+            />
+          );
         })}
-
       </section>
 
       <h1>Posts</h1>
@@ -76,5 +82,5 @@ export default async function Home({ searchParams: { category, endcursor } }: ty
         hasNextPage={data?.projectSearch?.pageInfo?.hasNextPage}
       />
     </section>
-  )
+  );
 }

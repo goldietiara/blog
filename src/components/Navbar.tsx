@@ -17,16 +17,16 @@ const Navbar = async () => {
 
     return (
         <nav className='flex justify-between items-center'>
-            <div className='flex items-center gap-5'>
-                <Link href="./">
-                    <Image src={logo} width={115} height={43} alt="flexible"></Image>
-                </Link>
-                <ul className='lg:flex hidden gap-5'>
-                    {NavLinks.map((v, i, a) => {
-                        return (<Link className='hover:text-teal-500' href={v.href} key={i}>{v.text}</Link>)
-                    })}
-                </ul>
-            </div>
+
+            <Link href="./">
+                <Image src={logo} width={115} height={43} alt="flexible"></Image>
+            </Link>
+            <ul className='lg:flex hidden gap-5'>
+                {NavLinks.map((v, i, a) => {
+                    return (<Link className='hover:text-teal-500' href={v.href} key={i}>{v.text}</Link>)
+                })}
+            </ul>
+
 
             <div className='flex items-center gap-4'>
                 {session?.user
