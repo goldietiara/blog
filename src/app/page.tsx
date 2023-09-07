@@ -36,8 +36,8 @@ export default async function Home({
   searchParams: { category, endCursor },
 }: typeProps) {
   const data = (await fetchAllProjects(
-    category,
-    endCursor
+    category
+    // endCursor
   )) as typeProjectSearch;
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
