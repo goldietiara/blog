@@ -8,8 +8,8 @@ import Image from "next/image";
 // npx grafbase@0.24 dev
 
 type typeSearchParams = {
-  category?: string;
-  endCursor?: string;
+  category: string;
+  endCursor: string;
 };
 
 type typeProps = {
@@ -39,8 +39,6 @@ export default async function Home({
     category,
     endCursor
   )) as typeProjectSearch;
-  // if (!category) return null;
-  // if (!endCursor) return null;
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
 
