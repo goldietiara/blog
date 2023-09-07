@@ -35,6 +35,9 @@ export const revalidate = 0;
 export default async function Home({
   searchParams: { category, endCursor },
 }: typeProps) {
+  if (!category) return null;
+  if (!endCursor) return null;
+
   const data = (await fetchAllProjects(
     category,
     endCursor
@@ -79,7 +82,7 @@ export default async function Home({
         startCursor={data?.projectSearch?.pageInfo?.startCursor}
         endCursor={data?.projectSearch?.pageInfo?.endCursor}
         hasPreviousPage={data?.projectSearch?.pageInfo?.hasPreviousPage}
-        hasNextPage={data?.projectSearch?.pageInfo?.hasNextPage}
+        hasNextPage={data?.projectSearch?.pageInfo.hasNextPage}
       />
     </section>
   );
