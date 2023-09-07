@@ -35,8 +35,10 @@ export const revalidate = 0;
 export default async function Home({
   searchParams: { category, endCursor },
 }: typeProps) {
+  if (!category) return null;
+
   const data = (await fetchAllProjects(
-    // category,
+    category,
     endCursor
   )) as typeProjectSearch;
 
