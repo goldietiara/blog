@@ -8,8 +8,8 @@ import Image from "next/image";
 // npx grafbase@0.24 dev
 
 type typeSearchParams = {
-  category: string;
-  endCursor: string;
+  category: string | "";
+  endCursor: string | "";
 };
 
 type typeProps = {
@@ -35,8 +35,6 @@ export const revalidate = 0;
 export default async function Home({
   searchParams: { category, endCursor },
 }: typeProps) {
-  if (!category) return null;
-
   const data = (await fetchAllProjects(
     category,
     endCursor
